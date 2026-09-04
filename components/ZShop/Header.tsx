@@ -13,6 +13,7 @@ interface HeaderProps {
   onOpenSellerChannel?: () => void;
   onBecomeSeller?: () => void;
   onProductClick?: (id: string) => void;
+  onOpenLanding3D?: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ 
@@ -24,7 +25,8 @@ const Header: React.FC<HeaderProps> = ({
   onOpenRegister,
   onOpenSellerChannel,
   onBecomeSeller,
-  onProductClick
+  onProductClick,
+  onOpenLanding3D
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<ProductDetail[]>([]);
@@ -85,7 +87,19 @@ const Header: React.FC<HeaderProps> = ({
     <header className="sticky top-0 z-50 bg-brand-600 shadow-md text-white">
       {/* Top Navbar */}
       <div className="container mx-auto px-4 py-1 flex justify-between text-xs sm:text-sm">
-        <div className="flex space-x-4">
+        <div className="flex space-x-4 items-center">
+          {onOpenLanding3D && (
+            <>
+              <button
+                onClick={onOpenLanding3D}
+                className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-cyan-300 via-sky-200 to-cyan-400 text-gray-950 font-black text-xs shadow-[0_0_15px_rgba(255,255,255,0.7)] hover:scale-105 transition-transform"
+                title="Trải nghiệm không gian 3D tương tác cao"
+              >
+                <span>✨ Không Gian 3D</span>
+              </button>
+              <span className="hidden sm:inline">|</span>
+            </>
+          )}
           {userRole === 'SELLER' && (
             <>
               <button onClick={onOpenSellerChannel} className="hover:text-gray-200">Kênh Người Bán</button>
