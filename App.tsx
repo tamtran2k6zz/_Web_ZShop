@@ -12,16 +12,17 @@ import AdminDashboard from './components/AdminDashboard';
 import MiniCart from './components/MiniCart';
 import HomePage from './components/HomePage';
 import ShopeeHomePage from './components/ZShop/ShopeeHomePage';
+import LandingPage3D from './components/Landing3D/LandingPage3D';
 import ForgotPasswordPage from './components/ForgotPasswordPage';
 import ChatBot from './components/ChatBot';
 import { UserRole, CartItem } from './types';
 import { MOCK_CART_ITEMS } from './constants';
 import { GioHangService } from './services';
 
-type ViewState = 'home' | 'product' | 'confirmation' | 'checkout' | 'result' | 'order-detail' | 'login' | 'tracking' | 'admin' | 'register' | 'seller-channel' | 'forgot-password';
+type ViewState = 'landing-3d' | 'home' | 'product' | 'confirmation' | 'checkout' | 'result' | 'order-detail' | 'login' | 'tracking' | 'admin' | 'register' | 'seller-channel' | 'forgot-password';
 
 const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<ViewState>('home');
+  const [currentView, setCurrentView] = useState<ViewState>('landing-3d');
   // Set default to CUSTOMER to enable immediate checkout flow for demo
   const [userRole, setUserRole] = useState<UserRole>(UserRole.CUSTOMER);
 
@@ -217,6 +218,20 @@ const App: React.FC = () => {
         />
       )}
 
+      {currentView === 'landing-3d' && (
+        <LandingPage3D
+          onEnterStore={() => setCurrentView('home')}
+          onProductClick={navigateToProduct}
+          onOpenCart={() => setIsMiniCartOpen(true)}
+          cartItemCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
+          userRole={userRole}
+          onLogin={() => setCurrentView('login')}
+          onLogout={handleLogout}
+          onGoToAdmin={() => setCurrentView('admin')}
+          onOpenSellerChannel={navigateToSellerChannel}
+        />
+      )}
+
       {currentView === 'home' && (
         <ShopeeHomePage
           onProductClick={navigateToProduct}
@@ -230,6 +245,7 @@ const App: React.FC = () => {
           onOpenRegister={() => setCurrentView('register')}
           onOpenSellerChannel={navigateToSellerChannel}
           onBecomeSeller={navigateToBecomeSeller}
+          onOpenLanding3D={() => setCurrentView('landing-3d')}
         />
       )}
 

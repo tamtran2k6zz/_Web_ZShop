@@ -18,6 +18,7 @@ interface ShopeeHomePageProps {
   onOpenRegister?: () => void;
   onOpenSellerChannel?: () => void;
   onBecomeSeller?: () => void;
+  onOpenLanding3D?: () => void;
 }
 
 const ShopeeHomePage: React.FC<ShopeeHomePageProps> = (props) => {
@@ -33,6 +34,7 @@ const ShopeeHomePage: React.FC<ShopeeHomePageProps> = (props) => {
         onOpenSellerChannel={props.onOpenSellerChannel}
         onBecomeSeller={props.onBecomeSeller}
         onProductClick={props.onProductClick}
+        onOpenLanding3D={props.onOpenLanding3D}
       />
       
       <main className="pb-8">
